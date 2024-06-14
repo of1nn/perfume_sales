@@ -1,0 +1,8 @@
+<div class="form-group">
+    <label for="typeSelect">Тип продукта</label>
+    <select class="form-control" id="typeSelect" multiple>
+        {% for type in types %}
+            <option value="{{ type.id }}">{{ type.name }}</option>
+        {% endfor %}
+    </select>
+</div>

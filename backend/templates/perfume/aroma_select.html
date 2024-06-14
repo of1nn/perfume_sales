@@ -1,0 +1,8 @@
+<div class="form-group">
+    <label for="aromaSelect">Аромат</label>
+    <select class="form-control" id="aromaSelect" multiple>
+        {% for aroma in aromas %}
+            <option value="{{ aroma.id }}">{{ aroma.name }}</option>
+        {% endfor %}
+    </select>
+</div>
