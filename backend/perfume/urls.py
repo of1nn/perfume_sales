@@ -1,6 +1,6 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.TemplateView.as_view(), name='index'),
+    path('', views.PerfumeListView.as_view(), name='index'),
 ]

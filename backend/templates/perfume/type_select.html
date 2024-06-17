@@ -1,8 +1,10 @@
-<div class="form-group">
-    <label for="typeSelect">Тип продукта</label>
-    <select class="form-control" id="typeSelect" multiple>
-        {% for type in types %}
-            <option value="{{ type.id }}">{{ type.name }}</option>
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Тип ({{ type }})
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for type_code, type_name in types %}
+            <li><a class="dropdown-item" href="?type={{ type_code }}">{{ type_name }}</a></li>
         {% endfor %}
-    </select>
+    </ul>
 </div>

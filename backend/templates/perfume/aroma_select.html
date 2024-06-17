@@ -1,8 +1,10 @@
-<div class="form-group">
-    <label for="aromaSelect">Аромат</label>
-    <select class="form-control" id="aromaSelect" multiple>
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Аромат ({{ aroma }})
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         {% for aroma in aromas %}
-            <option value="{{ aroma.id }}">{{ aroma.name }}</option>
+            <li><a class="dropdown-item" href="?aroma={{ aroma.slug }}">{{ aroma.name }}</a></li>
         {% endfor %}
-    </select>
+    </ul>
 </div>

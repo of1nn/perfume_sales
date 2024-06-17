@@ -17,33 +17,15 @@
             </ul>
         </div>
 
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Тип ({{ type }})
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% for type in types %}
-                    <li><a class="dropdown-item" href="?type={{ type }}">{{ type }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
+        {% include 'perfume/type_select.html' %}
 
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Аромат ({{ aroma }})
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% for aroma in aromas %}
-                    <li><a class="dropdown-item" href="?aroma={{ aroma }}">{{ aroma }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
+        {% include 'perfume/aroma_select.html' %}
 
     </aside>
 
     <div class="row">
         {% for perfume in perfumes %}
-            {% include 'perfume_card.html' with perfume=perfume %}
+            {% include 'perfume/perfume_card.html' with perfume=perfume %}
         {% endfor %}
     </div>
 

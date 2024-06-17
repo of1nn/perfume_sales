@@ -3,73 +3,75 @@ from django.utils.text import slugify
 
 
 class Aroma(models.Model):
-    name = models.CharField("Название аромата", max_length=64)
+    name = models.CharField('Название аромата', max_length=64)
 
     @property
     def slug(self):
         return slugify(self.name)
 
     class Meta:
-        verbose_name = "Аромат"
-        verbose_name_plural = "Ароматы"
-        ordering = ("name",)
+        verbose_name = 'Аромат'
+        verbose_name_plural = 'Ароматы'
+        ordering = ('name',)
 
 
 class Vendor(models.Model):
-    name = models.CharField("Название", max_length=64)
-    url = models.URLField("Ссылка", max_length=200, unique=True)
-    logo = models.ImageField(verbose_name="Лого")
+    name = models.CharField('Название', max_length=64)
+    url = models.URLField('Ссылка', max_length=200, unique=True)
+    logo = models.ImageField(verbose_name='Лого')
 
     class Meta:
-        verbose_name = "Продавец"
-        verbose_name_plural = "Продавцы"
-        ordering = ("name",)
+        verbose_name = 'Продавец'
+        verbose_name_plural = 'Продавцы'
+        ordering = ('name',)
 
 
 class Perfume(models.Model):
-    m = "M"
-    f = "F"
+    m = 'M'
+    f = 'F'
     SEXES = {
-        (m, "мужской"),
-        (f, "женский"),
+        (m, 'мужской'),
+        (f, 'женский'),
     }
 
     TYPE_CHOICES = (
-        ("EDT", "Туалетная вода"),
-        ("EDP", "Парфюмерная вода"),
-        ("ES", "Одеколон"),
-        ("PARFUM", "Духи"),
-        ("EF", "Вода (Eau Fraiche)"),
+        ('EDT', 'Туалетная вода'),
+        ('EDP', 'Парфюмерная вода'),
+        ('ES', 'Одеколон'),
+        ('PARFUM', 'Духи'),
+        ('EF', 'Вода (Eau Fraiche)'),
     )
 
-    name = models.CharField("Название", max_length=64)
-    description = models.TextField("Описание")
-    volume = models.PositiveSmallIntegerField("Объем")
-    image = models.ImageField(verbose_name="Картинка")
-    sex = models.CharField("Пол", max_length=1, choices=SEXES)
+    name = models.CharField('Название', max_length=64)
+    description = models.TextField('Описание')
+    volume = models.PositiveSmallIntegerField('Объем')
+    image = models.ImageField(verbose_name='Картинка')
+    sex = models.CharField('Пол', max_length=1, choices=SEXES)
     type = models.CharField(
-        "Тип продукта", max_length=10, choices=TYPE_CHOICES
+        'Тип продукта', max_length=10, choices=TYPE_CHOICES
     )
+    vendors = models.ManyToManyField(Vendor, through='PerfumeVendor')
+    aromas = models.ManyToManyField(Aroma, through='PerfumeAroma')
 
     @property
     def slug(self):
         return slugify(self.name)
 
     class Meta:
-        verbose_name = "Парфюм"
-        verbose_name_plural = "Парфюм"
+        verbose_name = 'Парфюм'
+        verbose_name_plural = 'Парфюм'
 
 
 class PerfumeVendor(models.Model):
     perfume = models.ForeignKey(Perfume, on_delete=models.CASCADE)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
-    price = models.DecimalField("Цена", max_digits=10, decimal_places=2)
-    evaluation = models.DecimalField("Оценка", max_digits=2, decimal_places=1)
-    url_to_perfume = models.URLField("Ссылка на продукт")
+    price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
+    evaluation = models.DecimalField('Оценка', max_digits=2, decimal_places=1)
+    url_to_perfume = models.URLField('Ссылка на продукт')
 
     class Meta:
-        verbose_name = "Продукт - продавец"
-        verbose_name_plural = "Продукты - продавцы"
+        verbose_name = 'Продукт - продавец'
+        verbose_name_plural = 'Продукты - продавцы'
 
 
 class PerfumeAroma(models.Model):
