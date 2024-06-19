@@ -4,7 +4,7 @@
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         {% for aroma in aromas %}
-            <li><a class="dropdown-item" href="?aroma={{ aroma.slug }}">{{ aroma.name }}</a></li>
+            <li><a class="dropdown-item" href="?aromas={{ aroma.name }}">{{ aroma.name }}</a></li>
         {% endfor %}
     </ul>
 </div>

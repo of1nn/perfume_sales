@@ -20,8 +20,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django_bootstrap5',
     'debug_toolbar',
+    'django_filters',
+
     'core.apps.CoreConfig',
     'pages.apps.PagesConfig',
     'perfume.apps.PerfumeConfig',

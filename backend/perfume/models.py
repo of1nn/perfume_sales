@@ -5,14 +5,13 @@ from django.utils.text import slugify
 class Aroma(models.Model):
     name = models.CharField('Название аромата', max_length=64)
 
-    @property
-    def slug(self):
-        return slugify(self.name)
-
     class Meta:
         verbose_name = 'Аромат'
         verbose_name_plural = 'Ароматы'
         ordering = ('name',)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Vendor(models.Model):
@@ -24,6 +23,9 @@ class Vendor(models.Model):
         verbose_name = 'Продавец'
         verbose_name_plural = 'Продавцы'
         ordering = ('name',)
+
+    def __str__(self):
+        return self.name
 
 
 class Perfume(models.Model):
@@ -53,13 +55,12 @@ class Perfume(models.Model):
     vendors = models.ManyToManyField(Vendor, through='PerfumeVendor')
     aromas = models.ManyToManyField(Aroma, through='PerfumeAroma')
 
-    @property
-    def slug(self):
-        return slugify(self.name)
-
     class Meta:
         verbose_name = 'Парфюм'
         verbose_name_plural = 'Парфюм'
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class PerfumeVendor(models.Model):
@@ -73,7 +74,17 @@ class PerfumeVendor(models.Model):
         verbose_name = 'Продукт - продавец'
         verbose_name_plural = 'Продукты - продавцы'
 
+    def __str__(self) -> str:
+        return f'{self.perfume.name} - {self.vendor.name}'
+
 
 class PerfumeAroma(models.Model):
     perfume = models.ForeignKey(Perfume, on_delete=models.CASCADE)
     aroma = models.ForeignKey(Aroma, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Парфюм - аромат'
+        verbose_name_plural = 'Парфюм - ароматы'
+
+    def __str__(self) -> str:
+        return f'{self.perfume.name} - {self.aroma.name}'
