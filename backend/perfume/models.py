@@ -65,7 +65,9 @@ class Perfume(models.Model):
 
 class PerfumeVendor(models.Model):
     perfume = models.ForeignKey(Perfume, on_delete=models.CASCADE)
-    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+    vendor = models.ForeignKey(
+        Vendor, on_delete=models.CASCADE, related_name='vendor'
+    )
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
     evaluation = models.DecimalField('Оценка', max_digits=2, decimal_places=1)
     url_to_perfume = models.URLField('Ссылка на продукт')

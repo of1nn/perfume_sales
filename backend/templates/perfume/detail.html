@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load perfume_filters %}
+{% block content %}
+    <body>
+        <div class="container mt-5">
+            <div class="row">
+                <!-- Блок с изображением -->
+                <div class="col-md-6">
+                    <img src="{{ perfume.image.url }}" alt="Изображение парфюма" class="img-fluid">
+                </div>
+                <!-- Блок с информацией о продукте -->
+                <div class="col-md-6">
+                    <h2>{{ perfume.name }} - {{ perfume.volume }}мл</h2>
+                    <p>Минимальная цена: {{ min_price }} руб.</p>
+                    <p>Тип: {{ perfume.type|type_description  }}</p>
+                    <!-- Блок с магазинами -->
+                    <div>
+                        {% for vendor_link in perfume.perfumevendor_set.all %}
+                            <div class="store"> 
+                                <img src="{{ vendor_link.vendor.logo.url }}" alt="Иконка магазина {{ vendor_link.vendor.name }}">
+                                <a href="{{ vendor_link.vendor.url }}" target="_blank">{{ vendor_link.vendor.name }}</a>
+                                <span>{{ vendor_link.price }} руб.</span>
+                                <span>Рейтинг: {{ vendor_link.evaluation }}</span>
+                                <a href="{{ vendor_link.url_to_perfume }}" class="btn btn-primary">Перейти</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Блок с ароматами -->
+                    <div>
+                        {% for scent in perfume.aromas.all %}
+                        <span class="hashtag">#{{ scent }}</span>
+                        {% endfor %}
+                    </div>
+                    <!-- Описание -->
+                    <div class="description">
+                        <p>{{ perfume.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
